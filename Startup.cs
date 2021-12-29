@@ -18,6 +18,8 @@ namespace Lab5
 {
     public class Startup
     {
+        private const string APIKEYNAME = "ApiKey";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,13 +35,28 @@ namespace Lab5
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.EnableAnnotations();
-                c.SwaggerDoc("v1", new OpenApiInfo
+                c.AddSecurityDefinition(APIKEYNAME, new OpenApiSecurityScheme()
                 {
-                    Title = "WebApp5",
-                    Version = "v1",
-                   
+                    In = ParameterLocation.Header,
+                    Name = APIKEYNAME,
+                    Type = SecuritySchemeType.ApiKey,
+                    Description = "Prosze podaæ zakupiony klucz do API."
                 });
+
+                var key = new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = APIKEYNAME
+                    },
+                    In = ParameterLocation.Header
+                };
+
+                var requirement = new OpenApiSecurityRequirement
+                    { { key, new List<string>() }};
+
+                c.AddSecurityRequirement(requirement);
             });
         }
 

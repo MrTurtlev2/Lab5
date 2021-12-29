@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab5.Models;
+using Lab5.Attributes;
+
 
 namespace Lab5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
