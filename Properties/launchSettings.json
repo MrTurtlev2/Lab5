@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "NewProject": {
+    "Lab5": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
